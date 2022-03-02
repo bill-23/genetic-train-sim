@@ -6,10 +6,10 @@ log = logging.getLogger(__name__)
 
 class Train:
 
-    motor_speed = PWMLED(21)
+    self.motor_speed = PWMLED(21)
 
-    direction_one = LED(20)
-    direction_two = LED(16)
+    self.direction_one = LED(20)
+    self.direction_two = LED(16)
 
     def __init__(self):
         log.info("Train instantiated")
@@ -19,14 +19,14 @@ class Train:
         log.info(f'Setting direction: {"Forward" if direction == "F" else "Reverse"}')
         
         if direction == "F":
-            direction_one.on()
-            direction_two.off()
+            self.direction_one.on()
+            self.direction_two.off()
         else:
-            direction_one.off()
-            direction_two.on()
+            self.direction_one.off()
+            self.direction_two.on()
 
     def set_train_speed(self, speed) -> None:
-        motor_speed.value = speed
+        self.motor_speed.value = speed
         log.info(f"Motor speed now: {speed}")
 
     
