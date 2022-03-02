@@ -6,13 +6,12 @@ log = logging.getLogger(__name__)
 
 class Train:
 
-    self.motor_speed = PWMLED(21)
-
-    self.direction_one = LED(20)
-    self.direction_two = LED(16)
-
     def __init__(self):
         log.info("Train instantiated")
+
+        self.motor_speed = PWMLED(21)
+        self.direction_one = LED(20)
+        self.direction_two = LED(16)
 
     def set_train_direction(self, direction: str) -> None:
 
