@@ -7,7 +7,7 @@ log = logging.getLogger(__name__)
 car_light_relay = LED(26)
 
 
-def change_carlight_state(enabled: bool):
+def change_carlight_state(enabled: bool) -> None:
 
     log.info(f'Turning car lights {"on" if enabled else "off"}')
 

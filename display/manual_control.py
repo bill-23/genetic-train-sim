@@ -4,7 +4,7 @@ import logging
 from train.train import Train
 from lighting.street_light import change_streetlight_state
 from lighting.car_light import change_carlight_state
-
+from stations.stations import get_current_station
 
 
 log = logging.getLogger(__name__)
@@ -18,8 +18,7 @@ class ManualController(tk.Tk):
         self.train = train
 
         self.title("Train Sim")
-        self.geometry('800x400')
-
+        self.geometry('800x500')
 
         self.selected_direction = tk.StringVar()
         self.selected_direction.set('F')
@@ -32,6 +31,15 @@ class ManualController(tk.Tk):
 
         self.directions = (('Forward', 'F'), ('Reverse', 'R'))
 
+        self.image_dict = {
+            0: 'assets/stations-all-red.png',
+            1: 'assets/stations-one-green.png',
+            2: 'assets/stations-two-green.png',
+            3: 'assets/stations-three-green.png',
+            4: 'assets/stations-four-green.png',
+            12: 'assets/stations-one-two-green.png',
+            34: 'assets/stations-three-four-green.png',
+        }
 
         self.content = ttk.Frame(self)
 
@@ -39,15 +47,19 @@ class ManualController(tk.Tk):
             self.content, 
             borderwidth=5, 
             relief="ridge", 
-            width=600, 
+            width=500, 
             height=300
         )
+
+        self.image = tk.PhotoImage(file=self.image_dict.get(get_current_station(), 'assets/stations-all-red.png'))
+
+        self.label = ttk.Label(self.left_frame, image=self.image).pack()
 
         self.right_frame = ttk.Frame(
             self.content, 
             borderwidth=5, 
             relief="ridge", 
-            width=200, 
+            width=300, 
             height=300
         )
 

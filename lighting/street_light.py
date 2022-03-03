@@ -6,7 +6,7 @@ log = logging.getLogger(__name__)
 street_light_relay = LED(12)
 
 
-def change_streetlight_state(enabled: bool):
+def change_streetlight_state(enabled: bool) -> None:
 
     log.info(f'Turning street lights {"on" if enabled else "off"}')
 

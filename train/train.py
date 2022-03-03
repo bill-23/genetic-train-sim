@@ -12,6 +12,7 @@ class Train:
         self.motor_speed = PWMLED(21)
         self.direction_one = LED(20)
         self.direction_two = LED(16)
+        self.set_train_direction(direction="F")
 
     def set_train_direction(self, direction: str) -> None:
 
@@ -25,7 +26,7 @@ class Train:
             self.direction_two.on()
 
     def set_train_speed(self, speed) -> None:
-        self.motor_speed.value = speed
+        self.motor_speed.value = (float) speed / 100
         log.info(f"Motor speed now: {speed}")
 
     
