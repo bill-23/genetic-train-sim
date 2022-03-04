@@ -26,7 +26,7 @@ class Train:
             self.direction_two.on()
 
     def set_train_speed(self, speed) -> None:
-        self.motor_speed.value = (float) speed / 100
+        self.motor_speed.value = float(speed) / 100
         log.info(f"Motor speed now: {speed}")
 
     

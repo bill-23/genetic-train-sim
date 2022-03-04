@@ -4,8 +4,8 @@ import logging
 from train.train import Train
 from lighting.street_light import change_streetlight_state
 from lighting.car_light import change_carlight_state
-from stations.stations import get_current_station
-
+# from stations.stations import get_current_station
+from gpiozero import Button
 
 log = logging.getLogger(__name__)
 
@@ -19,6 +19,19 @@ class ManualController(tk.Tk):
 
         self.title("Train Sim")
         self.geometry('800x500')
+
+        self.station_one = Button(5)
+        self.station_one.when_pressed = self.get_station_image
+        self.station_one.when_released= self.get_station_image
+        self.station_two = Button(19)
+        self.station_two.when_pressed = self.get_station_image
+        self.station_two.when_released = self.get_station_image
+        self.station_three = Button(6)
+        self.station_three.when_pressed = self.get_station_image
+        self.station_three.when_released = self.get_station_image
+        self.station_four = Button(13)
+        self.station_four.when_pressed = self.get_station_image
+        self.station_four.when_released = self.get_station_image
 
         self.selected_direction = tk.StringVar()
         self.selected_direction.set('F')
@@ -51,9 +64,12 @@ class ManualController(tk.Tk):
             height=300
         )
 
-        self.image = tk.PhotoImage(file=self.image_dict.get(get_current_station(), 'assets/stations-all-red.png'))
+        self.image = tk.PhotoImage(file='assets/stations-all-red.png')
 
-        self.label = ttk.Label(self.left_frame, image=self.image).pack()
+        self.label = ttk.Label(self.left_frame, image=self.image)
+        self.label.image = self.image
+
+        self.label.pack()
 
         self.right_frame = ttk.Frame(
             self.content, 
@@ -115,7 +131,7 @@ class ManualController(tk.Tk):
 
         self.car_light_checkbox.grid(column=1, row=5)
 
-        
+
     def get_current_value(self):
         return '{: .2f}'.format(100 - self.speed_value.get())
 
@@ -131,4 +147,28 @@ class ManualController(tk.Tk):
     def direction_changed(self):
         self.train.set_train_direction(self.selected_direction.get())
 
-    
+    def get_station_image(self):
+        if self.station_one.is_pressed:
+            log.info("Train at sensor 1")
+            new_photo = tk.PhotoImage(file=self.image_dict.get(1))
+            self.label.config(image=new_photo)
+            self.label.image = new_photo
+        elif self.station_two.is_pressed:
+            log.info("Train at sensor 2")
+            new_photo = tk.PhotoImage(file=self.image_dict.get(2))
+            self.label.config(image=new_photo)
+            self.label.image = new_photo
+        elif self.station_three.is_pressed:
+            log.info("Train at sensor 3")
+            new_photo = tk.PhotoImage(file=self.image_dict.get(3))
+            self.label.config(image=new_photo)
+            self.label.image = new_photo
+        elif self.station_four.is_pressed:
+            log.info("Train at sensor 4")
+            new_photo = tk.PhotoImage(file=self.image_dict.get(4))
+            self.label.config(image=new_photo)
+            self.label.image = new_photo
+        else:
+            new_photo = tk.PhotoImage(file=self.image_dict.get(0))
+            self.label.config(image=new_photo)
+            self.label.image = new_photo
