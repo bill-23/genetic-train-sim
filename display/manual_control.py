@@ -2,10 +2,10 @@ import tkinter as tk
 from tkinter import ttk
 import logging
 from train.train import Train
-from lighting.street_light import change_streetlight_state
-from lighting.car_light import change_carlight_state
-# from stations.stations import get_current_station
+from lighting.street_light import change_street_light_state
+from lighting.car_light import change_car_light_state
 from gpiozero import Button
+
 
 log = logging.getLogger(__name__)
 
@@ -136,13 +136,13 @@ class ManualController(tk.Tk):
         return '{: .2f}'.format(100 - self.speed_value.get())
 
     def speed_changed(self, event):
-        self.train.set_train_speed(self.get_current_value())
+        self.train.set_train_speed(float(self.get_current_value()))
 
     def street_lights_changed(self):
-        change_streetlight_state(enabled=self.street_lights_bool.get())
+        change_street_light_state(enabled=self.street_lights_bool.get())
 
     def car_lights_changed(self):
-        change_carlight_state(enabled=self.car_lights_bool.get())
+        change_car_light_state(enabled=self.car_lights_bool.get())
 
     def direction_changed(self):
         self.train.set_train_direction(self.selected_direction.get())
