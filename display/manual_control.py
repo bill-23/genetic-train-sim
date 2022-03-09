@@ -19,7 +19,7 @@ class ManualController(tk.Tk):
 
         self.title("Train Sim")
         self.geometry('800x500')
-
+        
         self.station_one = Button(5)
         self.station_one.when_pressed = self.get_station_image
         self.station_one.when_released= self.get_station_image
@@ -75,7 +75,7 @@ class ManualController(tk.Tk):
             self.content, 
             borderwidth=5, 
             relief="ridge", 
-            width=300, 
+            width=295, 
             height=300
         )
 
@@ -84,8 +84,9 @@ class ManualController(tk.Tk):
             from_=0,
             to=100,
             orient=tk.VERTICAL,
+            length=250,
             command=self.speed_changed,
-            variable=self.speed_value
+            variable=self.speed_value,
         )
 
         self.speed_slider.set(100.0)
@@ -96,7 +97,7 @@ class ManualController(tk.Tk):
             command=self.street_lights_changed,
             variable=self.street_lights_bool,
             onvalue=True,
-            offvalue=False
+            offvalue=False,
         )
 
         self.car_light_checkbox = ttk.Checkbutton(
@@ -108,7 +109,7 @@ class ManualController(tk.Tk):
             offvalue=False
         )
 
-        for count, direction in enumerate(self.directions, start=2):
+        for count, direction in enumerate(self.directions):
             self.radio_button = ttk.Radiobutton(
                 self.content,
                 text=direction[0],
@@ -117,7 +118,7 @@ class ManualController(tk.Tk):
                 variable=self.selected_direction
             )
 
-            self.radio_button.grid(column=count, row=5)
+            self.radio_button.grid(column=4, row=count, columnspan=2)
 
         self.content.grid(column=0, row=0)
 
@@ -125,11 +126,11 @@ class ManualController(tk.Tk):
 
         self.right_frame.grid(column=4, row=0, columnspan=4, rowspan=4)
 
-        self.speed_slider.grid(column=6, row=5, pady=20)
+        self.speed_slider.grid(column=6, row=0, columnspan=2, rowspan=4, pady=25)
 
-        self.street_light_checkbox.grid(column=0, row=5)
+        self.street_light_checkbox.grid(column=0, row=5, padx=5, pady=5)
 
-        self.car_light_checkbox.grid(column=1, row=5)
+        self.car_light_checkbox.grid(column=1, row=5, padx=5, pady=5)
 
 
     def get_current_value(self):

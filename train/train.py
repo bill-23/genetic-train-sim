@@ -32,7 +32,7 @@ class Train:
         Raises:
         * `TrainSimInvalidInputError`: If direction is not `F` or `R`
         """
-        if "F" not in direction or "R" not in direction:
+        if direction not in ["F", "R"]:
             msg = f"Error! Expected either F or R to call set_train_direction but received {direction}"
             raise TrainSimInvalidInputError(msg=msg)
 
