@@ -50,8 +50,6 @@ class ManualController(tk.Tk):
             2: 'assets/stations-two-green.png',
             3: 'assets/stations-three-green.png',
             4: 'assets/stations-four-green.png',
-            12: 'assets/stations-one-two-green.png',
-            34: 'assets/stations-three-four-green.png',
         }
 
         self.content = ttk.Frame(self)
